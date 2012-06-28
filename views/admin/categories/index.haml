@@ -1,0 +1,33 @@
+!!! 5
+%html
+  %head
+    %title Kategorienadministration - Meta D3
+  %body
+    #main
+      .navigation
+        %a{href:'/admin'} back
+      
+      %h3 Alle kategorien
+      %table
+        %tr
+          %th ID
+          %th content
+        
+        - @categories.each do |cat|
+          %tr
+            %td= cat.id
+            %td
+              %form{action:'/admin/categories/update', method:'post'}
+                %input{type:'hidden', name:'id', value:cat.id}
+                %input{name:'name', value:cat.name}
+                %br
+                %textarea{name:'description'}= cat.description
+                %br
+                %input{type:'submit', value:"update"}
+              %form{action:'/admin/categories/delete', method:'post'}
+                %input{type:'hidden', name:'id', value:cat.id}
+                %input{type:'submit', value:'löschen'}
+        
+      %a{href:'/admin/categories/new'} neue Kategorie
+              
+              

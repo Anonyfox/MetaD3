@@ -1,0 +1,17 @@
+.widgetsContainer {width: 960px;margin: auto;}
+.clearBox {clear: both;}
+
+#offenseBox, #defenseBox, #lifeBox, #dpsBox, #ehpBox, #eltBox {
+	float: left;
+	width: 300px;
+	margin: 10px;
+}
+
+#offenseBox {}
+#defenseBox {}
+#lifeBox {}
+
+.widgetsContainer table td:first-child {
+	text-align: right;
+	font-weight: bold
+}

@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %title Neuer Guide - Admin Meta D3
+  %body
+    = haml :'admin/templates/nav'
+    %h3 new Guide
+    %form{action:'/admin/guides/create',method:'post'}
+      %p
+        Titel: 
+        %input{name:'title', size:20}
+      
+      %p
+        Kategorie: 
+        %select{name:'category', size:1}
+          - Category.all.each do |cat|
+            %option{value:cat.id}= cat.name
+      %p
+        Inhalt:
+        %br
+        %textarea.editable{name:'text'}
+      
+      %p
+        %input{type:'submit', value:'anlegen'}

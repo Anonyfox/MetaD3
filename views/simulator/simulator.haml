@@ -1,0 +1,187 @@
+!!! 5
+%html
+  %head
+    %title Simulation - MetaD3
+    %link{rel:"stylesheet",type:'text/css',href:"/css/hot-sneaks/jquery-ui.css"}
+    %link{rel:"stylesheet",type:'text/css',href:"/css/main.css"}
+    %link{rel:"stylesheet",type:'text/css',href:"/css/simulator/simulator.css"}
+    %script{type:'text/javascript',src:'/js/jquery.js'}
+    %script{type:'text/javascript',src:'/js/jquery-ui.js'}
+    %script{type:'text/javascript',src:'/js/simulator/simulator.coffee'} 
+  %body
+    #main
+      = haml :'partials/header'
+      %h2 Werte-Simulator (freier Modus)
+      %hr
+      .widgetsContainer
+        
+        #offenseBox.ui-widget
+          .ui-widget-header.ui-corner-top
+            %p Offensive
+          .ui-widget-content.ui-corner-bottom
+            %table
+              %tr 
+                %td Waffenschaden: 
+                %td
+                  %input#weaponDamageMin{size:4,maxlength:4}
+                  = " - "
+                  %input#weaponDamageMax{size:4,maxlength:4}
+              %tr
+                %td Hauptattribut
+                %td
+                  %input#mainAttribute{size:4,maxlength:4}
+              %tr
+                %td Angriffe pro Sekunde: 
+                %td 
+                  %input#attacksPerSecond{size:4,maxlength:4}
+              %tr
+                %td kritische Trefferchance: 
+                %td 
+                  %input#critChance{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td kritischer Schadensbonus: 
+                %td 
+                  %input#critDamage{size:4,maxlength:4}
+                  = "%"
+        
+        #defenseBox.ui-widget
+          .ui-widget-header.ui-corner-top
+            %p Defensive
+          .ui-widget-content.ui-corner-bottom
+            %table
+              %tr
+                %td Rüstung: 
+                %td
+                  %input#armor{size:4,maxlenght:5}
+              %tr
+                %td Resistenz(physisch): 
+                %td
+                  %input#resist{size:4,maxlength:4}
+              %tr
+                %td Ausweichchance:
+                %td
+                  %input#dodge{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Blockchance:
+                %td 
+                  %input#blockChance{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Blockwert: 
+                %td
+                  %input#blockValueMin{size:4,maxlength:4}
+                  = " - "
+                  %input#blockValueMax{size:4,maxlength:4}
+              %tr 
+                %td Allgemeine Reduktion:
+                %td
+                  %input#generalReduction{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Reduktion gegen Elite:
+                %td
+                  %input#eliteReduction{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Reduktion gegen Nahkämpfer: 
+                %td
+                  %input#meleeReduction{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Klasse: 
+                %td
+                  %select#melee{size:1}
+                    %option{value:1,selected:"selected"} Nahkämpfer
+                    %option{value:0} Fernkämpfer
+        
+        #lifeBox.ui-widget
+          .ui-widget-header.ui-corner-top
+            %p Leben
+          .ui-widget-content.ui-corner-bottom
+            %table
+              %tr
+                %td Vitalität: 
+                %td
+                  %input#vitality{size:4,maxlength:4}
+              %tr
+                %td Lebensbonus: 
+                %td
+                  %input#lifeBonus{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Leben pro Sekunde: 
+                %td
+                  %input#lifePerSecond{size:4,maxlength:4}
+              %tr
+                %td Lebensraub: 
+                %td
+                  %input#lifeLeech{size:4,maxlength:4}
+                  = "%"
+              %tr
+                %td Leben pro Treffer: 
+                %td 
+                  %input#lifePerHit{size:4,maxlength:4}
+              
+        .clearBox
+        
+      %hr
+      
+      .widgetsContainer
+        
+        #dpsBox.ui-widget
+          .ui-widget-header.ui-corner-top
+            %p Schaden
+          .ui-widget-content.ui-corner-bottom
+            %table
+              %tr
+                %td Schadenswert (normal):
+                %td#resultDamage 0.0
+              %tr
+                %td Schadenswert (kritisch): 
+                %td#resultCritDamage 0.0
+              %tr
+                %td Schadenswert (durchschnitt): 
+                %td#resultAverageDamage 0.0
+              %tr
+                %td Schaden pro Sekunde: 
+                %td#resultDamagePerSecond 0.0
+          
+        #ehpBox.ui-widget
+          .ui-widget-header.ui-corner-top
+            %p Effective Health Pool (EHP)
+          .ui-widget-content.ui-corner-bottom
+            %table
+              %tr
+                %td Akt 1: 
+                %td#ehpAct1 0.0
+              %tr
+                %td Akt 2:
+                %td#ehpAct2 0.0
+              %tr
+                %td Akt 3:
+                %td#ehpAct3 0.0
+              %tr
+                %td Akt 4:
+                %td#ehpAct4 0.0
+          
+        #eltBox.ui-widget
+          .ui-widget-header.ui-corner-top
+            %p Effektive Lebenszeit (ELT)
+          .ui-widget-content.ui-corner-bottom
+            %table
+              %tr
+                %td Akt 1: 
+                %td#eltAct1 0.0
+              %tr
+                %td Akt 2:
+                %td#eltAct2 0.0
+              %tr
+                %td Akt 3:
+                %td#eltAct3 0.0
+              %tr
+                %td Akt 4:
+                %td#eltAct4 0.0
+  
+        .clearBox

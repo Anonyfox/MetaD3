@@ -1,0 +1,17 @@
+!!! 5
+%html
+  %head
+    %title neue Kategorie
+  %body
+    #main
+      %h3 neue Kategorie
+      
+      %form{action:'/admin/categories/create', method:'post'}
+        %p
+          Name: 
+          %input{name:'name'}
+        %p
+          Beschreibung: 
+          %textarea{name:'description'}
+        %p
+          %input{type:'submit'}

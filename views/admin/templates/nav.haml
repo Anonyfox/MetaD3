@@ -1,0 +1,14 @@
+#header
+  %a{href:'/admin'} Home
+  %a{href:'/admin/categories'} Categories
+  %a{href:'/admin/guides'} Guides
+  %a{href:'/admin/skills'} Skills
+  %a{href:'/admin/statistics'} Statistics
+
+%link{rel:'stylesheet', type:'text/css', href:'/cleditor/jquery.cleditor.css'}
+%script{type:'text/javascript', src:'/js/jquery.js'}
+%script{type:'text/javascript', src:'/cleditor/jquery.cleditor.min.js'}
+:javascript
+  $(document).ready(function () {
+    $('.editable').cleditor();
+  });

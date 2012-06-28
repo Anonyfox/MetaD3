@@ -1,0 +1,31 @@
+!!! 5
+%html
+  %head
+    %title Kategorien - Admin Meta D3
+  %body
+    #main
+      .backlink
+        %a{href:'/admin'} back
+      %h3 Guides
+      %table
+        %tr
+          %th ID
+          %th title
+          %th category
+          %th page_views
+          %th created_at
+          %th updated_at
+          %th actions
+        - @guides.each do |guide|
+          %tr
+            %td= guide.id
+            %td= guide.title
+            %td= guide.category.name
+            %td= guide.page_views
+            %td= guide.created_at
+            %td= guide.updated_at
+            %td
+              %a{href:'/guides/'+guide.id.to_s} show
+              %a{href:'/admin/guides/show/'+guide.id.to_s} edit
+      
+      %a{href:'/admin/guides/new'} write new Guide
