@@ -1,5 +1,6 @@
 .widgetsContainer {width: 960px;margin: auto;}
 .clearBox {clear: both;}
+.testHeadline {text-align: center}
 
 #offenseBox, #defenseBox, #lifeBox, #dpsBox, #ehpBox, #eltBox {
 	float: left;
@@ -11,7 +12,59 @@
 #defenseBox {}
 #lifeBox {}
 
-.widgetsContainer table td:first-child {
-	text-align: right;
-	font-weight: bold
+.widgetsContainer table td:first-child {text-align: right;font-weight: bold}
+.widgetsContainer table {margin: auto}
+.ui-widget-header {text-align: center}
+
+#offenseBox .ui-widget-content{
+	background: #a02022;
+	background: -moz-linear-gradient(left,  #a02022 0%, #d35d5f 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#a02022), color-stop(100%,#d35d5f));
+	background: -webkit-linear-gradient(left,  #a02022 0%,#d35d5f 100%);
+	background: -o-linear-gradient(left,  #a02022 0%,#d35d5f 100%);
+	background: -ms-linear-gradient(left,  #a02022 0%,#d35d5f 100%);
+	background: linear-gradient(to right,  #a02022 0%,#d35d5f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a02022', endColorstr='#d35d5f',GradientType=1 );
 }
+
+#defenseBox .ui-widget-content {
+	background: #0b23bf;
+	background: -moz-linear-gradient(left,  #0b23bf 0%, #9699ff 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0b23bf), color-stop(100%,#9699ff));
+	background: -webkit-linear-gradient(left,  #0b23bf 0%,#9699ff 100%);
+	background: -o-linear-gradient(left,  #0b23bf 0%,#9699ff 100%);
+	background: -ms-linear-gradient(left,  #0b23bf 0%,#9699ff 100%);
+	background: linear-gradient(to right,  #0b23bf 0%,#9699ff 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0b23bf', endColorstr='#9699ff',GradientType=1 );
+}
+
+#lifeBox .ui-widget-content {
+	background: #027a00;
+	background: -moz-linear-gradient(left,  #027a00 0%, #59d157 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#027a00), color-stop(100%,#59d157));
+	background: -webkit-linear-gradient(left,  #027a00 0%,#59d157 100%);
+	background: -o-linear-gradient(left,  #027a00 0%,#59d157 100%);
+	background: -ms-linear-gradient(left,  #027a00 0%,#59d157 100%);
+	background: linear-gradient(to right,  #027a00 0%,#59d157 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#027a00', endColorstr='#59d157',GradientType=1 );
+}
+
+fieldset {background: rgba(255,255,255,0.5);margin: 5px;}
+legend {font-weight: bold}
+#offenseBox legend {background: white;}
+#defenseBox legend {background: white;}
+#lifeBox legend {background: white;}
+
+.simulationDialog fieldset {
+	background-image: linear-gradient(bottom, rgb(255,214,214) 15%, rgb(229,229,255) 40%);
+	background-image: -o-linear-gradient(bottom, rgb(255,214,214) 15%, rgb(229,229,255) 40%);
+	background-image: -moz-linear-gradient(bottom, rgb(255,214,214) 15%, rgb(229,229,255) 40%);
+	background-image: -webkit-linear-gradient(bottom, rgb(255,214,214) 15%, rgb(229,229,255) 40%);
+	background-image: -ms-linear-gradient(bottom, rgb(255,214,214) 15%, rgb(229,229,255) 40%);
+	text-align: center;
+}
+.simulationDialog table {margin: auto; text-align: right}
+.simulationDialog table td {padding: 5px;}
+.simulationDialog table td:nth-of-type(odd) {background: rgba(0,0,0,0.25); color: white; }
+.simulationDialog table td:nth-of-type(even) {background: rgba(0,0,0,0.1); font-weight: bold;}
+.simulationDialog legend {background: white; border: 1px solid black}

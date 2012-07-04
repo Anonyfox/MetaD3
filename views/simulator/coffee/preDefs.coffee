@@ -1,0 +1,90 @@
+class window.preDefs 
+  this.setTwoHanded = ->
+    # Offense
+    $('#weaponDamageMin').val 988
+    $('#weaponDamageMax').val 1366
+    $('#weaponDamageMinOffhand').val 0
+    $('#weaponDamageMaxOffhand').val 0
+    $('#bonusDamageMin').val 27
+    $('#bonusDamageMax').val 47
+    $('#mainAttribute').val 1518
+    $('#attacksPerSecond').val 0.98
+    $('#critChance').val 21.5
+    $('#critDamageBonus').val 120.0
+    # Defense
+    $('#armor').val 5652
+    $('#resist').val 739
+    $('#dodge').val 35.2
+    $('#blockChance').val 0
+    $('#blockValueMin').val 0
+    $('#blockValueMax').val 0
+    $('#generalReduction').val 0
+    $('#eliteReduction').val 0
+    $('#meleeReduction').val 4
+    # Life
+    $('#vitality').val 778
+    $('#lifeBonus').val 0.0
+    $('#lifePerSecond').val 229
+    $('#lifeLeech').val 2.7
+    $('#lifePerHit').val 143
+    Widgets.updateAll()
+
+  this.setShield = ->
+    # Offense
+    $('#weaponDamageMin').val 259
+    $('#weaponDamageMax').val 588
+    $('#weaponDamageMinOffhand').val 0
+    $('#weaponDamageMaxOffhand').val 0
+    $('#bonusDamageMin').val 27
+    $('#bonusDamageMax').val 47
+    $('#mainAttribute').val 1347
+    $('#attacksPerSecond').val 1.43
+    $('#critChance').val 21.5
+    $('#critDamageBonus').val 68.0
+    # Defense
+    $('#armor').val 6415
+    $('#resist').val 810
+    $('#dodge').val 33.5
+    $('#blockChance').val 19.0
+    $('#blockValueMin').val 1960
+    $('#blockValueMax').val 2844
+    $('#generalReduction').val 0
+    $('#eliteReduction').val 0
+    $('#meleeReduction').val 7.84
+    # Life
+    $('#vitality').val 820
+    $('#lifeBonus').val 11.0
+    $('#lifePerSecond').val 353
+    $('#lifeLeech').val 2.5
+    $('#lifePerHit').val 763
+    Widgets.updateAll()
+
+  this.setMinimal = ->
+    # offense
+    $('#weaponDamageMin').val 2
+    $('#weaponDamageMax').val 3
+    $('#weaponDamageMinOffhand').val 0
+    $('#weaponDamageMaxOffhand').val 0
+    $('#bonusDamageMin').val 0
+    $('#bonusDamageMax').val 0
+    $('#mainAttribute').val 187
+    $('#attacksPerSecond').val 1.0
+    $('#critChance').val 5.0
+    $('#critDamageBonus').val 50.0
+    # defense
+    $('#armor').val 67
+    $('#resist').val 6.7
+    $('#dodge').val 12.2
+    $('#blockChance').val 0
+    $('#blockValueMin').val 0
+    $('#blockValueMax').val 0
+    $('#generalReduction').val 0
+    $('#eliteReduction').val 0
+    $('#meleeReduction').val 0
+    # life
+    $('#vitality').val 127
+    $('#lifeBonus').val 0.0
+    $('#lifePerSecond').val 0
+    $('#lifeLeech').val 0.0
+    $('#lifePerHit').val 0
+    Widgets.updateAll()

@@ -8,6 +8,9 @@ require 'active_record'
 require 'sqlite3'
 require_relative 'lib/database'
 
+set :port, 5786
+set :environment, :production
+
 before do 
   db = Database.new
 end
@@ -16,9 +19,23 @@ end
 ### main sites
 #######################################################
 
-get( '/') { haml :index }
+get( '/') { redirect '/simulator' }
 get( '/simulator') { haml :'simulator/simulator' }
-get( '/js/simulator/simulator.coffee') { coffee :'simulator/simulator' }
+get( '/coffee/simulator') {
+  content_type "text/javascript" 
+  coffee(:"simulator/coffee/preDefs") +
+  coffee(:"simulator/coffee/Enemy") +
+  coffee(:"simulator/coffee/Player") +
+  coffee(:"simulator/coffee/Calc") +
+  coffee(:"simulator/coffee/Validator") +
+  coffee(:"simulator/coffee/Widgets") +
+  coffee(:"simulator/coffee/Simulation") +
+  coffee(:"simulator/coffee/Storage") +
+  coffee(:"simulator/coffee/main") 
+}
+
+# blocking requests until all done
+=begin
 
 #######################################################
 ### articles
@@ -42,3 +59,4 @@ post('/admin/guides/create') { Guide.create(title: params[:title], category_id: 
 get( '/admin/guides/show/:id') { haml :'/admin/guides/form' }
 post('/admin/guides/update') {}
 post('/admin/guides/delete'){}
+=end

@@ -7,11 +7,20 @@
     %link{rel:"stylesheet",type:'text/css',href:"/css/simulator/simulator.css"}
     %script{type:'text/javascript',src:'/js/jquery.js'}
     %script{type:'text/javascript',src:'/js/jquery-ui.js'}
-    %script{type:'text/javascript',src:'/js/simulator/simulator.coffee'} 
+    %script{type:'text/javascript',src:'/js/jquery.cookie.js'} 
+    %script{type:'text/javascript',src:'/coffee/simulator'} 
   %body
     #main
-      = haml :'partials/header'
-      %h2 Werte-Simulator (freier Modus)
+      -#= haml :'partials/header'
+      .testHeadline
+        %h2 Meta D3 Werte-Simulator
+        -# testing purposes only 
+        %button{onClick:'preDefs.setMinimal()'}= "Minimalzustand setzen" 
+        %button{onClick:'preDefs.setTwoHanded()'}= "Beispielbelegung Zweihandwaffe"
+        %button{onClick:'preDefs.setShield()'}= "Beispielbelegung Schild"
+        %button{onclick:'Storage.save()'}= "Aktuelle Belegung speichern"
+        %button{onClick:'Storage.load()'}= "Gespeicherte Belegung laden"
+        %button{onclick:'$(".simulationDialog").dialog("open")'}= "Simulator öffnen"
       %hr
       .widgetsContainer
         
@@ -19,110 +28,146 @@
           .ui-widget-header.ui-corner-top
             %p Offensive
           .ui-widget-content.ui-corner-bottom
-            %table
-              %tr 
-                %td Waffenschaden: 
-                %td
-                  %input#weaponDamageMin{size:4,maxlength:4}
-                  = " - "
-                  %input#weaponDamageMax{size:4,maxlength:4}
-              %tr
-                %td Hauptattribut
-                %td
-                  %input#mainAttribute{size:4,maxlength:4}
-              %tr
-                %td Angriffe pro Sekunde: 
-                %td 
-                  %input#attacksPerSecond{size:4,maxlength:4}
-              %tr
-                %td kritische Trefferchance: 
-                %td 
-                  %input#critChance{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td kritischer Schadensbonus: 
-                %td 
-                  %input#critDamage{size:4,maxlength:4}
-                  = "%"
+            %fieldset.mainhandBox
+              %legend Haupthand-Waffe
+              %table
+                %tr 
+                  %td Waffenschaden: 
+                  %td
+                    %input#weaponDamageMin{size:4,maxlength:4}
+                    = " - "
+                    %input#weaponDamageMax{size:4,maxlength:4}            
+            %fieldset.offhandBox
+              %legend Nebenhand-Waffe
+              %table
+                %tr 
+                  %td Waffenschaden: 
+                  %td
+                    %input#weaponDamageMinOffhand{size:4,maxlength:4}
+                    = " - "
+                    %input#weaponDamageMaxOffhand{size:4,maxlength:4}
+            %fieldset.bonusDamageBox
+              %legend Bonusschaden
+              %table
+                %tr
+                  %td Amulett+Ringe:
+                  %td 
+                    %input#bonusDamageMin{size:3,maxlength:3}
+                    = " - "
+                    %input#bonusDamageMax{size:3,maxlength:3}  
+            %fieldset.offstatBox  
+              %legend Offensiv-Werte      
+              %table
+                %tr
+                  %td Hauptattribut
+                  %td
+                    %input#mainAttribute{size:4,maxlength:4}
+                %tr
+                  %td Angriffe pro Sekunde: 
+                  %td 
+                    %input#attacksPerSecond{size:4,maxlength:4}
+                %tr
+                  %td kritische Trefferchance: 
+                  %td 
+                    %input#critChance{size:4,maxlength:4}
+                    = "%"
+                %tr
+                  %td kritischer Schadensbonus: 
+                  %td 
+                    %input#critDamageBonus{size:4,maxlength:4}
+                    = "%"
         
         #defenseBox.ui-widget
           .ui-widget-header.ui-corner-top
             %p Defensive
           .ui-widget-content.ui-corner-bottom
-            %table
-              %tr
-                %td Rüstung: 
-                %td
-                  %input#armor{size:4,maxlenght:5}
-              %tr
-                %td Resistenz(physisch): 
-                %td
-                  %input#resist{size:4,maxlength:4}
-              %tr
-                %td Ausweichchance:
-                %td
-                  %input#dodge{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Blockchance:
-                %td 
-                  %input#blockChance{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Blockwert: 
-                %td
-                  %input#blockValueMin{size:4,maxlength:4}
-                  = " - "
-                  %input#blockValueMax{size:4,maxlength:4}
-              %tr 
-                %td Allgemeine Reduktion:
-                %td
-                  %input#generalReduction{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Reduktion gegen Elite:
-                %td
-                  %input#eliteReduction{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Reduktion gegen Nahkämpfer: 
-                %td
-                  %input#meleeReduction{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Klasse: 
-                %td
-                  %select#melee{size:1}
-                    %option{value:1,selected:"selected"} Nahkämpfer
-                    %option{value:0} Fernkämpfer
+            %fieldset.defenseMainBox
+              %legend Verteidigungswerte
+              %table
+                %tr
+                  %td Rüstung: 
+                  %td
+                    %input#armor{size:5,maxlenght:5}
+                %tr
+                  %td Resistenz(physisch): 
+                  %td
+                    %input#resist{size:4,maxlength:4}
+                %tr
+                  %td Ausweichchance:
+                  %td
+                    %input#dodge{size:4,maxlength:4}
+                    = "%"
+            %fieldset.shieldBox
+              %legend Schild
+              %table
+                %tr
+                  %td Blockchance:
+                  %td 
+                    %input#blockChance{size:4,maxlength:4}
+                    = "%"
+                %tr
+                  %td Blockwert: 
+                  %td
+                    %input#blockValueMin{size:4,maxlength:4}
+                    = " - "
+                    %input#blockValueMax{size:4,maxlength:4}
+            %fieldset.defenseStuffBox
+              %legend Sonstige Defensivwerte
+              %table
+                %tr 
+                  %td Allgemeine Reduktion:
+                  %td
+                    %input#generalReduction{size:4,maxlength:4}
+                    = "%"
+                %tr
+                  %td Elite-Reduktion:
+                  %td
+                    %input#eliteReduction{size:4,maxlength:4}
+                    = "%"
+                %tr
+                  %td Nahkampf-Reduktion: 
+                  %td
+                    %input#meleeReduction{size:4,maxlength:4}
+                    = "%"
+                %tr
+                  %td Klasse: 
+                  %td
+                    %select#melee{size:1}
+                      %option{value:1,selected:"selected"} Nahkämpfer
+                      %option{value:0} Fernkämpfer
         
         #lifeBox.ui-widget
           .ui-widget-header.ui-corner-top
             %p Leben
           .ui-widget-content.ui-corner-bottom
-            %table
-              %tr
-                %td Vitalität: 
-                %td
-                  %input#vitality{size:4,maxlength:4}
-              %tr
-                %td Lebensbonus: 
-                %td
-                  %input#lifeBonus{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Leben pro Sekunde: 
-                %td
-                  %input#lifePerSecond{size:4,maxlength:4}
-              %tr
-                %td Lebensraub: 
-                %td
-                  %input#lifeLeech{size:4,maxlength:4}
-                  = "%"
-              %tr
-                %td Leben pro Treffer: 
-                %td 
-                  %input#lifePerHit{size:4,maxlength:4}
+            %fieldset.staticLifeBox
+              %legend Lebenspunkte
+              %table
+                %tr
+                  %td Vitalität: 
+                  %td
+                    %input#vitality{size:4,maxlength:4}
+                %tr
+                  %td Lebensbonus: 
+                  %td
+                    %input#lifeBonus{size:4,maxlength:4}
+                    = "%"
+            %fieldset.lifeRegenBox
+              %legend Lebensregeneration
+              %table
+                %tr
+                  %td Leben pro Sekunde: 
+                  %td
+                    %input#lifePerSecond{size:4,maxlength:4}
+                %tr
+                  %td Lebensraub: 
+                  %td
+                    %input#lifeLeech{size:4,maxlength:4}
+                    = "%"
+                %tr
+                  %td Leben pro Treffer: 
+                  %td 
+                    %input#lifePerHit{size:4,maxlength:4}
               
         .clearBox
         
@@ -131,7 +176,7 @@
       .widgetsContainer
         
         #dpsBox.ui-widget
-          .ui-widget-header.ui-corner-top
+          .ui-widget-header.ui-corner-top{title:"Durchschnittswerte für automatische Angriffe. Für Fähigkeiten ist der entsprechende Modifikator wie im Tooltip angegeben zu verwenden. Für Fähigkeiten wird fast immer der Schaden herangezogen, nicht die DPS."}
             %p Schaden
           .ui-widget-content.ui-corner-bottom
             %table
@@ -149,7 +194,7 @@
                 %td#resultDamagePerSecond 0.0
           
         #ehpBox.ui-widget
-          .ui-widget-header.ui-corner-top
+          .ui-widget-header.ui-corner-top{title:"Lebenspunkte * (Reduzierung durch Rüstung) * (Reduzierung durch Resistenz) x (weitere Reduzierungen analog)"}
             %p Effective Health Pool (EHP)
           .ui-widget-content.ui-corner-bottom
             %table
@@ -167,7 +212,7 @@
                 %td#ehpAct4 0.0
           
         #eltBox.ui-widget
-          .ui-widget-header.ui-corner-top
+          .ui-widget-header.ui-corner-top{title:"Durchschnittliche Lebenszeit, die mittels Durchschnittswerten schnell berechnet wurde. Entspricht einer Simulation mit Standardeinstellungen, nur im Einzelfall deutlich ungenauer."}
             %p Effektive Lebenszeit (ELT)
           .ui-widget-content.ui-corner-bottom
             %table
@@ -185,3 +230,35 @@
                 %td#eltAct4 0.0
   
         .clearBox
+        
+        .simulationDialog
+          #simBackground
+            %p
+              Simulationsmodus. Im Gegensatz zur schnellen Durchschnittsberechnung werden hier 
+              Spielbedingungen möglichst exakt nachgestellt. Es wird das folgende Szenario simuliert: 
+              Ein Elitegegner schlägt mit dem gegebenen Tempo auf den Charakter ein. Der Charakter schlägt 
+              den Elitegegner konstant und ausschließlich mit seinem automatischen Angriff. Ein Zyklus endet mit dem Tod 
+              des Charakters. 
+              
+            %p
+              %strong
+                Zyklen:  
+                %input#simAccuracy{value:100000}
+              %strong
+                Akt:  
+                %select#simAct{size:1}
+                  %option{value:'1', selected:'selected'} Akt 1
+                  %option{value:'2'} Akt 2
+                  %option{value:'3'} Akt 3
+                  %option{value:'4'} Akt 4
+              %strong
+                Angriffstempo des Gegners (alle X sekunden):   
+                %select#simSpeed{size:1}
+                  %option{value:'1.0'} 1.0 (schnelle Angreifer)
+                  %option{value:'1.5', selected:'selected'} 1.5 (normale Angreifer)
+                  %option{value:'2.0'} 2.0 (langsame Angreifer)
+            
+            %p
+              %button{onClick:'Simulation.run()'} Start!
+            %hr
+            %p#simResult               
